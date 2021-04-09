@@ -1,0 +1,5 @@
+var vechile_name=document.forms[form_name]["vechile_name"].value;
+var color=document.forms[form_name]["color"].value;
+var FEEDBACK=document.forms[form_name]["FEEDBACK"].value; 
+|| name_regex.test(vechile_name)==false
+|| color==null || color=="" || FEEDBACK==null || FEEDBACK==""

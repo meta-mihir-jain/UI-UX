@@ -1,46 +1,43 @@
-function validateform()
+let pass_regex = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/; //passwoord
+let name_regex = /^[A-Za-z]{3,}$/  //name
+let contact_regex = /^[\d]{8,10}$/  //contact
+let email_regex = /^[a-zA-Z0-9]+@[a-z]{4,}.[a-z]{2,}(.[a-z]{2,4})?$/; //email
+let errMessage="";
+function validate(regex_name,value,errorMesg){
+   if((regex_name != null ) && (regex_name.test(value)==false) ){
+       errMessage+=errorMesg+"\n"; 
+   }
+   else if((regex_name == null ) && (value=="" || value == null )){
+     errMessage+=errorMesg+"\n";
+   }
+}
+function validateform(form_name)
 {
-console.log(document.myform);
-let eid=document.myform.eid.value;
-let name=document.myform.name.value;  
-let email=document.myform.email.value;
-let cn=document.myform.cn.value;
-let password=document.myform.password.value;
-let cpassword=document.myform.cpassword.value;
-let regex = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/; //passwoord
-let regex1 = /^[A-Za-z]{3,}$/  //name
-let regex2 = /^[\d]{8,10}$/  //contact
-let regex3 = /^[a-zA-Z0-9]+@[a-z]{4,}.[a-z]{2,}(.[a-z]{2,4})?$/; //email
-if (eid==null || eid=="")
-{  
-  alert("EMPLOYEE ID can't be blank");  
-  return false;
-}
-else if (regex1.test(name)==false)
-{  
-    alert("Name has only alphabets with 3 size");  
-    return false;  
-  }
-  else if(regex3.test(email)==false)
-  {
-    alert("ENTER CORRECT EMAIl");  
-    return false;
-  }
-  else if(regex2.test(cn)==false)
-  {
-    alert("ENTER CORRECT CONTACT 8-10 size");  
-    return false;
-  }
-  else if(regex.test(password)==false)
-  {  
-    alert("Password has 1 character Lower and smaller,1 digit and 1 Special charcter");  
-    return false;  
+    if(form_name=="form"){ 
+        
+            validate(null,document.forms[form_name]["empid"].value,"EMP ID CAN:T BE BLANK");
+            validate(name_regex,document.forms[form_name]["name"].value,"NAME HAS A SIZE");
+            validate(email_regex,document.forms[form_name]["email"].value,"ENTER CORRECT EMAIL");
+            validate(contact_regex,document.forms[form_name]["contactnumber"].value,"CONTACT NUMBER IS WRONG");
+            validate(pass_regex,document.forms[form_name]["password"].value,"ENTER CORRECT PASSWORD");
+            validate(name_regex,document.forms[form_name]["cpassword"].value,"ENTER PASSWORD AGAIN");
     }
-    else if(cpassword!=password)
-  {  
-    alert("PASSWORD NOT MATCHED");  
-    return false;  
+    else if(form_name=="form1"){
+            validate(name_regex,document.forms[form_name]["name"].value,"NAME HAS A SIZE");  
+            validate(name_regex,document.forms[form_name]["vechilename"].value,"VECHILE HAS A MODEL NAME");
+            validate(name_regex,document.forms[form_name]["color"].value,"ENTER COLOR");
+            validate(email_regex,document.forms[form_name]["email"].value,"ENTER CORRECT EMAIl");
     }
-    
+    else if(form_name=="form2"){ 
+            validate(null,document.forms[form_name]["empid"].value,"EMP ID CAN:T BE BLANK");
+            validate(name_regex,document.forms[form_name]["name"].value,"NAME HAS A SIZE");
+            validate(email_regex,document.forms[form_name]["email"].value,"Email is not correct");
+            validate(contact_regex,document.forms[form_name]["contactnumber"].value,"CONTACT NO HAS size 8 t0 10");
+            validate(null,document.forms[form_name]["FEEDBACK"].value,"FEEDBACK CAN:T BE BLANK");
+    } 
+   console.log(errMessage);
+    if (errMessage != "") 
+    {
+        alert(errMessage);
+    } 
 }
-
